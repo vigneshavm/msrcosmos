@@ -1,0 +1,65 @@
+
+<div class="menuLeftSide" >
+    <table id="tab">
+        <tr ng-repeat="list in navList">
+            <td class="menuButton clickable-row" data-href="{{list.navUrl}}"  style="border-top: 2px solid white;">
+                <table style="width:100%;">
+                    <tr>
+
+                        <td class="menuText">
+                            <a class="menuLink menuColor" href="{{list.navUrl}}" style="text-decoration: none;font-size: 16px;">{{list.title}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+<div>
+    <fieldset >
+        <legend >ADD Book </legend>
+        <table >
+            <tr>
+                <td>
+                    <div >
+                        <table >
+                            <tr>
+                                <td >Book Name</td>
+                                <td><input style="cursor:text;"
+                                                              type="text"
+                                                              ng-model="bookDetails.name"></td>
+                            </tr>
+                            <tr>
+                                <td >Author</td>
+                                <td><input style="cursor:text;"
+                                           type="text"
+                                           ng-model="bookDetails.author"></td>
+                            </tr>
+
+                            <tr>
+                                <td >Published Date</td>
+                                <td><input style="cursor:text;"
+                                           type="text"
+                                           ng-model="bookDetails.publishedDate"></td>
+                            </tr>
+                            <tr>
+                                <td >Book quality</td>
+                                <td><input style="cursor:text;"
+                                           type="text"
+                                           ng-model="bookDetails.quality"></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </fieldset>
+    <button class="btn btn-default " ng-click="saveBookDetails()">Save</button>
+
+    <div style="color: black">{{book_info}}</div>
+</div>

@@ -1,0 +1,56 @@
+
+<div class="menuLeftSide" >
+    <table id="tab">
+        <tr ng-repeat="list in navList">
+            <td class="menuButton clickable-row" data-href="{{list.navUrl}}"  style="border-top: 2px solid white;">
+                <table style="width:100%;">
+                    <tr>
+
+                        <td class="menuText">
+                            <a class="menuLink menuColor" href="{{list.navUrl}}" style="text-decoration: none;font-size: 16px;">{{list.title}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+<div>
+    <fieldset >
+        <legend >Book List</legend>
+        <table >
+            <tr>
+                <th style="padding:25px; ">Book Name</th>
+                <th style="padding:25px;">Published Date</th>
+                <th style="padding:25px;">Author</th>
+                <th style="padding:25px;">Quality</th>
+            </tr>
+
+            <tr ng-repeat="list in bookList">
+                <!--<tr>-->
+                <div>
+                    <td style="padding:25px;">
+                        {{list.book}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.publishedDate}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.author}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.quality}}
+                    </td>
+                </div>
+                <!--</tr>-->
+            </tr>
+        </table>
+
+    </fieldset>
+</div>

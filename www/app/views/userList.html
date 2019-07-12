@@ -1,0 +1,57 @@
+
+<div class="menuLeftSide" >
+    <table id="tab">
+        <tr ng-repeat="list in navList">
+            <td class="menuButton clickable-row" data-href="{{list.navUrl}}"  style="border-top: 2px solid white;">
+                <table style="width:100%;">
+                    <tr>
+
+                        <td class="menuText">
+                            <a class="menuLink menuColor" href="{{list.navUrl}}" style="text-decoration: none;font-size: 16px;">{{list.title}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+<div>
+    <fieldset >
+        <legend >User List</legend>
+        <table >
+            <tr>
+                <th style="padding:25px; ">User Name</th>
+                <th style="padding:25px;">Email</th>
+                <th style="padding:25px;">Status</th>
+                <th style="padding:25px;">Last LoginIn</th>
+            </tr>
+
+            <tr ng-repeat="list in userListData">
+                <!--<tr>-->
+                <div>
+                    <td style="padding:25px;">
+                        {{list.firstName}}  {{list.lastName}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.email}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.Online}}
+                    </td>
+
+                    <td style="padding:25px;">
+                        {{list.Online}}
+                    </td>
+
+                </div>
+                <!--</tr>-->
+            </tr>
+        </table>
+
+    </fieldset>
+</div>
