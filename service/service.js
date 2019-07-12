@@ -22,13 +22,40 @@ ServiceRoutes.prototype.findData = function (tableName, criteria, callback) {
     var condition = criteria.condition ? criteria.condition : {};
     var projection = criteria.projection ? criteria.projection : {};
     var sortOrder = criteria.sortOrder ? criteria.sortOrder : {};
-    var limit = criteria.limit ? criteria.limit : 0;
+    var limit = criteria.limit ? Number(criteria.limit) : 0;
     var skip = criteria.skip ? criteria.skip : 0;
 
 
 
 
     db[tableName].find(condition, projection).sort(sortOrder).skip(skip).limit(limit).toArray(function (err, data) {
+        if (data) {
+            callback(null,data)
+
+        } else {
+            callback(null,null)
+        }
+    });
+
+};
+
+ServiceRoutes.prototype.getCount = function (tableName, criteria, callback) {
+
+
+    var self = this;
+    var table = db[tableName];
+
+
+
+    var condition = criteria.condition ? criteria.condition : {};
+    var projection = criteria.projection ? criteria.projection : {};
+    var sortOrder = criteria.sortOrder ? criteria.sortOrder : {};
+    var limit = criteria.limit ? criteria.limit : 0;
+    var skip = criteria.skip ? criteria.skip : 0;
+
+
+    db[tableName].count(condition, function (err, data) {
+
         if (data) {
             callback(null,data)
 

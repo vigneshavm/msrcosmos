@@ -1,10 +1,12 @@
-libraryApp.controller("bookController", ['$scope', '$http','$rootScope', function ($scope, $http,$rootScope) {
+libraryApp.controller("bookController", ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope) {
+
+    $scope.page = 1;
+    $scope.limit = 5;
+    $scope.disableBtn = false;
+    $scope.previousButton = false;
 
 
-
-
-    if($rootScope.role == 'normal')
-    {
+    if ($rootScope.role == 'normal') {
         $scope.navList = [
 
 
@@ -16,7 +18,7 @@ libraryApp.controller("bookController", ['$scope', '$http','$rootScope', functio
 
         ];
 
-    }else{
+    } else {
         $scope.navList = [
 
             {
@@ -35,21 +37,65 @@ libraryApp.controller("bookController", ['$scope', '$http','$rootScope', functio
     $scope.getBookList = function () {
 
         var req_data = {
-            email: $scope.email,
-            password: $scope.password
+            limit: $scope.limit,
+            page: $scope.page
         };
-        $http.get('/bookList', req_data)
 
-            .then(function (response) {
-                var responseObject = response.data.data;
+        $http({
 
-                console.log("responseObject",responseObject);
-                $scope.bookList = responseObject
+            method: 'GET',
+
+            url: '/bookList',
+
+            params: req_data
+
+        }).then(function success(response) {
 
 
+            var responseObject = response.data.data;
+            $scope.pageNum = true
+            $scope.bookList = responseObject
 
-            });
+            if ($scope.page == 1) {
+
+                $scope.totalCount = Number(response.data.count)
+                $scope.totalPage = Math.ceil($scope.totalCount / $scope.limit)
+
+
+            }
+
+
+            if (($scope.totalPage < $scope.page) || ($scope.totalPage == $scope.page)) {
+                $scope.nextButton = true
+            } else {
+                $scope.nextButton = false
+            }
+
+
+            if (($scope.page == 1) || ($scope.page == 0)) {
+
+                $scope.previousButton = true
+            } else {
+                $scope.previousButton = false
+            }
+
+
+        });
     };
     $scope.getBookList()
 
-    }]);
+
+    $scope.previous_question = function () {
+        $scope.page -= 1;
+        $scope.getBookList()
+
+
+    }
+
+    $scope.next_question = function () {
+        $scope.page += 1;
+        $scope.getBookList()
+
+
+    }
+}]);

@@ -177,67 +177,59 @@ ActionRoutes.prototype.getUserList = function (req,callback){
         condition :  {
             role: { $ne: 'admin' }
         },
-        sortOrder : {_id:1},
+        sortOrder : {_id:1}
     };
-    self.serviceInstance.findData(tableName, criteria, function (err,UserRes){
+    self.serviceInstance.getCount(tableName, criteria, function (err,userCount) {
+        self.serviceInstance.findData(tableName, criteria, function (err, UserRes) {
 
 
+            if (UserRes.length) {
+
+                async.forEach(UserRes, function (singleObj, forEachCbk) {
+
+                    var tableName = 'loginStatus';
 
 
-
-        if(UserRes.length){
-
-            async.forEach(UserRes, function (singleObj, forEachCbk) {
-
-                var tableName= 'loginStatus';
-
-
+                    var criteria = {
+                        condition: {email: singleObj.email},
+                        sortOrder: {_id: 1},
+                        limit: 1
+                    };
+                    self.serviceInstance.findData(tableName, criteria, function (err, res) {
 
 
+                        singleObj['lastLoginTime'] = res.loginTime ? res.loginTime : null;
 
+                        forEachCbk(null, singleObj);
+                    })
 
-                var criteria={
-                    condition :  {email:singleObj. email } ,
-                    sortOrder : {_id:1},
-                    limit: 1
-                };
-                self.serviceInstance.findData(tableName, criteria, function (err,res){
+                }, function (result2) {
 
+                    resObject = {
+                        status: true,
+                        data: UserRes,
+                        count: userCount,
+                        description: 'Message available'
+                    };
 
-
-                    singleObj['lastLoginTime'] = res.loginTime ? res.loginTime : null;
-
-                    forEachCbk(null, singleObj);
+                    callback(null, resObject)
                 })
 
-            }, function (result2) {
+
+            } else {
+
 
                 resObject = {
-                    status: true,
-                    data: UserRes,
-                    description: 'Message available'
+                    status: false,
+                    data: []
                 };
-
                 callback(null, resObject)
-            })
 
+            }
 
-
-
-        }else{
-
-
-            resObject= {
-                status:false,
-                data :[]
-            };
-            callback(null,resObject)
-
-        }
+        })
 
     })
-
-
 };
 ActionRoutes.prototype.getUserMessages = function (req,callback){
 
@@ -390,6 +382,8 @@ ActionRoutes.prototype.getBookList = function (req,callback){
 
     var  reqObj= req.query;
 
+    console.log("reqObj",req.query)
+
 
     var resObject ={};
 
@@ -398,14 +392,30 @@ ActionRoutes.prototype.getBookList = function (req,callback){
         condition : {
         }
     };
-    self.serviceInstance.findData(tableName, criteria, function (err,res){
+    self.serviceInstance.getCount(tableName, criteria, function (err,recordCount){
+
+        var criteria={
+            condition : {
+            },
+            sortOrder :{
+                _id:-1
+            },
+            limit : Number(reqObj.limit),
+            skip : Number((reqObj.page - 1) * Number(reqObj.limit))
+
+        };
+
+
+        console.log("criteria", criteria);
+        self.serviceInstance.findData(tableName, criteria, function (err,res){
 
 
         if(res.length){
 
             resObject= {
                 status:true,
-                data : res
+                data : res,
+                count :recordCount
             };
 
             callback(null,resObject)
@@ -421,6 +431,7 @@ ActionRoutes.prototype.getBookList = function (req,callback){
 
         }
 
+    })
     })
 
 

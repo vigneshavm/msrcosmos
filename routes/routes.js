@@ -66,6 +66,9 @@ UIRoutes.prototype.init = function()
 
     app.get("/bookList",function(req,res){
 
+
+        console.log("reqObj",req.query)
+
         self.actionInstance.getBookList(req,function(err,result){
             console.log(result,"result")
 

@@ -54,4 +54,8 @@
         </table>
 
     </fieldset>
+
+    <div ng-show="pageNum" class="neo-order page-font pull-left" style="white-space: nowrap" >Page <span>{{page}}</span> of
+        <span>{{Math.ceil(totalCount/limit) || 0}}</span>
+    </div>
 </div>

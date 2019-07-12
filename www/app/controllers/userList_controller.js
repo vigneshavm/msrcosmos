@@ -1,5 +1,7 @@
 libraryApp.controller("userController", ['$scope', '$http','$rootScope', function ($scope, $http,$rootScope) {
 
+    $scope.page = 0;
+    $scope.limit = 5;
 
 
     console.log($rootScope.role,"$rootScope");
@@ -47,8 +49,11 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope', functio
 
                 console.log("responseObject",responseObject);
                 $scope.userListData = responseObject
+                $scope.pageNum = true
 
+                $scope.totalCount = response.data.count
 
+                console.log("$scope.totalCount", $scope.totalCount);
 
             });
     };
