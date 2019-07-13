@@ -87,5 +87,13 @@ UIRoutes.prototype.init = function()
             res.json(result)
         })
     })
+ app.delete("/deleteBook",function(req,res){
+
+        self.actionInstance.deleteBook(req,function(err,result){
+            console.log(result,"result")
+
+            res.json(result)
+        })
+    })
 
 };

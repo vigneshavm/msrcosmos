@@ -10,13 +10,16 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
         $scope.navList = [
 
 
+
             {
                 title: "Books",
-                navUrl: "#/home/book",
-                state: "home.book"
+                navUrl: "#/book",
+                state: "book"
             }
 
         ];
+        $scope.editField = true
+        $scope.deleteField = true
 
     } else {
         $scope.navList = [
@@ -26,14 +29,52 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
                 navUrl: "#/home",
                 state: "home"
             },
+
             {
-                title: "Books",
+                title: "Manage Books",
+                navUrl: "#/book",
+                state: "book"
+            },
+            {
+                title: "Add Books",
                 navUrl: "#/addBook",
                 state: "addBook"
             }
 
+
         ];
+
+        $scope.editField = false
+        $scope.deleteField = false
     }
+
+
+    $scope.deleteBook = function(m){
+        console.log(m.list)
+        if(m.list)
+        {
+            console.log(m.list.bookID);
+            $http({
+
+                method: 'DELETE',
+
+                url: '/deleteBook',
+
+                params: {bookID :m.list.bookID }
+
+            }).then(function success(response) {
+                location.reload();
+                if(response.status) {
+                    $scope.book_delete = "Book deleted successfully";
+
+                }else{
+                    $scope.book_delete = "Book not deleted";
+                }
+            })
+        }
+
+    }
+
     $scope.getBookList = function () {
 
         var req_data = {
@@ -60,6 +101,13 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
 
                 $scope.totalCount = Number(response.data.count)
                 $scope.totalPage = Math.ceil($scope.totalCount / $scope.limit)
+
+                console.log($scope.totalPage);
+
+                if($scope.totalPage ==0)
+                {
+                    $scope.totalPage +=1;
+                }
 
 
             }

@@ -13,8 +13,8 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
 
             {
                 title: "Books",
-                navUrl: "#/home/book",
-                state: "home.book"
+                navUrl: "#/book",
+                state: "book"
             }
 
         ];
@@ -28,7 +28,12 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
                 state: "home"
             },
             {
-                title: "Books",
+                title: "Manage Books",
+                navUrl: "#/book",
+                state: "book"
+            },
+            {
+                title: "Add Books",
                 navUrl: "#/addBook",
                 state: "addBook"
             }

@@ -39,5 +39,11 @@ libraryApp.controller("loginController", ['$scope', '$http','$rootScope','$state
 
                 });
         }
+    $scope.signup = function () {
+
+
+                            $state.go("signup");
+
+        }
     }]
 );

@@ -17,6 +17,16 @@ libraryApp.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('signup', {
+            url: '/signup',
+            templateUrl: "app/views/signup.html",
+            controller: "signupController",
+            resolve: {
+                message: function ($http, $window, $rootScope) {
+                }
+            }
+        })
+
         // nested list with custom controller
         .state('home', {
             url: '/home',

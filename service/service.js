@@ -121,3 +121,27 @@ ServiceRoutes.prototype.updateUserData = function (tableName,condition,updateDat
             }
         })
 }
+
+ServiceRoutes.prototype.deleteData = function (tableName, criteria, callback) {
+
+
+    var self = this;
+    var table = db[tableName];
+
+
+
+
+
+
+    db[tableName].remove(criteria, function(err, data) {
+        if (data) {
+            callback(null,data)
+
+        } else {
+            callback(null,null)
+        }
+    });
+
+};
+
+

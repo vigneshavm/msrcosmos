@@ -49,7 +49,7 @@ ActionRoutes.prototype.signUp = function (req,callback){
                 status:false,
                 data :res,
                 statusCode :100,
-                message : 'User Already Exist'
+                message : 'Email Already Exist'
             };
 
             callback(null,resObject)
@@ -345,13 +345,25 @@ ActionRoutes.prototype.addBook = function (req,callback){
         }else{
 
 
+            function makeid(length) {
+                var result           = '';
+                var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                var charactersLength = characters.length;
+                for ( var i = 0; i < length; i++ ) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                }
+                return result;
+            }
+
+
 
             var inputObject ={
                 book : reqObj.book,
                 publishedDate :reqObj.publishedDate,
                 author :reqObj.author,
                 quality :reqObj.quality,
-                addedTime : new  Date().getTime()
+                addedTime : new  Date().getTime(),
+                bookID : makeid(5)
 
             };
 
@@ -438,7 +450,8 @@ ActionRoutes.prototype.getBookList = function (req,callback){
 
             resObject= {
                 status:false,
-                data :[]
+                data :[],
+                count :0
             };
             callback(null,resObject)
 
@@ -527,6 +540,49 @@ ActionRoutes.prototype.logOut = function (req,callback){
             callback(null, resObject)
 
 
+
+        }
+
+    })
+
+
+};
+ActionRoutes.prototype.deleteBook = function (req,callback){
+
+
+    var self = this;
+
+
+    var  reqObj1= req.query;
+
+
+    var tableName = 'book';
+
+    var criteria ={
+        bookID : reqObj1.bookID
+
+    };
+    self.serviceInstance.deleteData(tableName, criteria, function (err,res){
+
+        console.log("res", res);
+
+        if(res){
+
+            resObject= {
+                status:true,
+                data : res,
+            };
+
+            callback(null,resObject)
+
+        }else{
+
+
+            resObject= {
+                status:false,
+                data :[]
+            };
+            callback(null,resObject)
 
         }
 
