@@ -1,13 +1,13 @@
-
-<div class="menuLeftSide" >
+<div class="menuLeftSide">
     <table id="tab">
         <tr ng-repeat="list in navList">
-            <td class="menuButton clickable-row" data-href="{{list.navUrl}}"  style="border-top: 2px solid white;">
+            <td class="menuButton clickable-row" data-href="{{list.navUrl}}" style="border-top: 2px solid white;">
                 <table style="width:100%;">
                     <tr>
 
                         <td class="menuText">
-                            <a class="menuLink menuColor" href="{{list.navUrl}}" style="text-decoration: none;font-size: 16px;">{{list.title}}</a>
+                            <a class="menuLink menuColor" href="{{list.navUrl}}"
+                               style="text-decoration: none;font-size: 16px;">{{list.title}}</a>
                         </td>
                     </tr>
                 </table>
@@ -19,65 +19,84 @@
 
 
 <div>
-    <fieldset >
-        <legend >Book List</legend>
-        <table >
+    <fieldset>
+        <legend>Book List</legend>
+
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <th style="padding:25px; ">Book ID</th>
-                <th style="padding:25px; ">Book Name</th>
-                <th style="padding:25px;">Published Date</th>
+
+
+                <th style="padding:25px; ">
+
+
+                    <a   ng-click="orderByID('bookID')">
+                        Book ID</a>
+                </th>
+
+                <th style="padding:25px; ">
+
+
+                    <a  ng-click="orderByName('book')">
+                        Book Name</a>
+
+                    </th>
+                <th style="padding:25px;"><a  ng-click="orderByPublishDate('publishedDate')">
+                    Published Date</a>
+                       </th>
                 <th style="padding:25px;">Author</th>
                 <th style="padding:25px;">Quality</th>
+                <th ng-hide="deleteField" style="padding:25px;">Edit</th>
                 <th ng-hide="deleteField" style="padding:25px;">Delete</th>
-            </tr>
 
+            </tr>
+            </thead>
+            <tbody>
             <tr ng-repeat="list in bookList">
-                <!--<tr>-->
-                <div>
-                    <td style="padding:25px;">
-                        {{list.bookID ? list.bookID : "-"}}
-                    </td>
-                    <td style="padding:25px;">
-                        {{list.book ? list.book : "-"}}
-                    </td>
+                <td>
+                {{list.bookID ? list.bookID : "-"}}
+                </td>
+                <td>{{list.book ? list.book : "-"}}</td>
+                <td>{{list.publishedDate ? list.publishedDate : "-"}}</td>
+                <td> {{list.author ? list.author : "-"}}</td>
 
-                    <td style="padding:25px;">
-                        {{list.publishedDate ? list.publishedDate : "-"}}
-                    </td>
 
-                    <td style="padding:25px;">
-                        {{list.author ? list.author : "-"}}
-                    </td>
+                <td >
+                    {{list.quality ? list.quality : "-"}}
+                </td>
 
-                    <td style="padding:25px;">
-                        {{list.quality ? list.quality : "-"}}
-                    </td>
+                <td ng-hide="deleteField" >
+                    <button type="button" class="btn" ng-click="editBook(this)"> Edit</button>
+                </td>
 
-                    <td ng-hide="deleteField" style="padding:25px;">
-                        <button ng-click="deleteBook(this)"> Delete </button>
-                    </td>
-                </div>
-                <!--</tr>-->
+                <td ng-hide="deleteField" >
+                    <button type="button" class="btn btn-danger" ng-click="deleteBook(this)"> Delete</button>
+                </td>
+
             </tr>
+            </tbody>
         </table>
+
 
     </fieldset>
 
 
-
-    <button type="button" class="btn btn-default "  ng-disabled="nextButton" ng-click="next_question()">Next
+    <button type="button" class="btn btn-info" ng-disabled="nextButton" ng-click="next_question()">Next
     </button>
-    <button type="button" class="btn btn-default" ng-disabled="previousButton"  ng-click="previous_question()" >
+    <button type="button" class="btn btn-info" ng-disabled="previousButton" ng-click="previous_question()">
         Previous
     </button>
 
-    <div ng-show="pageNum" class="neo-order page-font pull-left" style="white-space: nowrap" >Page <span>{{page}}</span> of
+    <div ng-show="pageNum" class="neo-order page-font pull-left" style="white-space: nowrap">Page <span>{{page}}</span>
+        of
         <span>{{totalPage || 0}}</span>
     </div>
 </div>
 
 
 <div>
-    <button class="btn btn-default " style="top: 0;position: fixed;
-  right: 0;" ng-click="logout()">LogOut</button>
+    <button type="button" class="btn btn-danger" style="top: 0;position: fixed;
+  right: 0;" ng-click="logout()">LogOut
+    </button>
 </div>
+

@@ -6,6 +6,10 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
     $scope.disableBtn = false;
     $scope.previousButton = false;
 
+    $scope.orderByField = 'firstName';
+    $scope.reverseSort = false;
+
+
 
     console.log($rootScope.role,"$rootScope");
 
@@ -104,6 +108,57 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
             });
     };
     $scope.userList()
+
+
+
+    $scope.sortFindOrderByName = 2;
+
+    $scope.orderByName = function (m) {
+
+        $scope.sortFindOrderByName += 1;
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+        if (isEven($scope.sortFindOrderByName)) {
+            $scope.userListData.sort(function(a, b){
+                if(a[m] < b[m]) { return -1; }
+                if(a[m] > b[m]) { return 1; }
+                return 0;
+            })
+        } else {
+            $scope.userListData.sort(function(a, b){
+                if(a[m] < b[m]) { return 1; }
+                if(a[m] > b[m]) { return -1; }
+                return 0;
+            })
+        }
+
+    };
+
+    $scope.sortFindOrderByEmail = 2;
+
+    $scope.orderByEmail = function (m) {
+
+        $scope.sortFindOrderByEmail += 1;
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+        if (isEven($scope.sortFindOrderByEmail)) {
+            $scope.userListData.sort(function(a, b){
+                if(a[m] < b[m]) { return -1; }
+                if(a[m] > b[m]) { return 1; }
+                return 0;
+            })
+        } else {
+            $scope.userListData.sort(function(a, b){
+                if(a[m] < b[m]) { return 1; }
+                if(a[m] > b[m]) { return -1; }
+                return 0;
+            })
+        }
+
+    };
+
 
     $scope.previous_question = function () {
         $scope.page -= 1;

@@ -45,7 +45,6 @@ UIRoutes.prototype.init = function()
     app.get("/userList",function(req,res){
 
         self.actionInstance.getUserList(req,function(err,result){
-            console.log(result,"result");
 
             res.json(result)
         })
@@ -67,10 +66,8 @@ UIRoutes.prototype.init = function()
     app.get("/bookList",function(req,res){
 
 
-        console.log("reqObj",req.query)
 
         self.actionInstance.getBookList(req,function(err,result){
-            console.log(result,"result")
 
             res.json(result)
         })

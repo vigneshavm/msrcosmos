@@ -1,5 +1,6 @@
 
-<div>
+
+<div class="logreg-forms">
     <fieldset >
         <legend >Sign UP</legend>
         <table >
@@ -9,39 +10,39 @@
                         <table >
                             <tr>
                                 <td >First Name</td>
-                                <td><input style="cursor:text;"
+                                <td ><input style="cursor:text;" class="form-control"
                                                               type="text"
                                                               ng-model="signup.firstName"></td>
                             </tr>
                             <tr>
                                 <td >Last Name</td>
-                                <td><input style="cursor:text;"
+                                <td ><input style="cursor:text;" class="form-control"
                                            type="text"
                                            ng-model="signup.lastName"></td>
                             </tr>
 
                             <tr>
                                 <td >email</td>
-                                <td><input style="cursor:text;"
+                                <td ><input style="cursor:text;" class="form-control"
                                            type="text"
                                            ng-model="signup.email"></td>
                             </tr>
                             <tr>
                                 <td >phoneNumber</td>
-                                <td><input placeholder="Number 10 digit" style="cursor:text;"
+                                <td><input placeholder="Number 10 digit" style="cursor:text;" class="form-control"
                                            type="text"
                                            ng-model="signup.phoneNumber"></td>
                             </tr>
                             <tr>
                                 <td >Password</td>
-                                <td><input style="cursor:text;"
+                                <td><input style="cursor:text;" class="form-control"
                                            type="text"
                                            ng-model="signup.password"></td>
                             </tr>
                             <tr>
                                 <td >role</td>
                                 <td>
-                                <select ng-model="signup.role" ng-options="x for x in role">
+                                <select class="form-control" ng-model="signup.role" ng-options="x for x in role">
                                 </select>
                                 </td>
 
@@ -56,8 +57,10 @@
 
 
     </fieldset>
-    <button class="btn btn-default " ng-click="saveSignUp()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="saveSignUp()">Save</button>
+    <hr>
 
+    <button type="button" class="btn btn-primary" ng-click="loginPage()">Login</button>
     <div style="color: black">{{ signUp_info }}</div>
 </div>
 

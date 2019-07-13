@@ -21,10 +21,19 @@
 <div>
     <fieldset >
         <legend >User List</legend>
-        <table >
+        <table class="table table-bordered">
             <tr>
-                <th style="padding:25px; ">User Name</th>
-                <th style="padding:25px;">Email</th>
+                <th style="padding:25px; ">
+
+                    <a   ng-click="orderByName('firstName')">
+                        User Name</a>
+
+                </th>
+                <th style="padding:25px;">
+                    <a   ng-click="orderByEmail('email')">
+                        Email</a>
+
+                 </th>
                 <th style="padding:25px;">Status</th>
                 <th style="padding:25px;">Last LoginIn</th>
                 <th style="padding:25px;">Last LoginOut</th>
@@ -60,9 +69,9 @@
     </fieldset>
 
 
-    <button type="button" class="btn btn-default "  ng-disabled="nextButton" ng-click="next_question()">Next
+    <button type="button" class="btn btn-info"  ng-disabled="nextButton" ng-click="next_question()">Next
     </button>
-    <button type="button" class="btn btn-default" ng-disabled="previousButton"  ng-click="previous_question()" >
+    <button type="button" class="btn btn-info" ng-disabled="previousButton"  ng-click="previous_question()" >
         Previous
     </button>
 
@@ -73,6 +82,6 @@
 
 
 <div>
-    <button class="btn btn-default " style="top: 0;position: fixed;
+    <button type="button" class="btn btn-danger" style="top: 0;position: fixed;
   right: 0;" ng-click="logout()">LogOut</button>
 </div>

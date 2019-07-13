@@ -9,7 +9,10 @@ libraryApp.controller("signupController", ['$scope', '$http','$rootScope','$stat
     $scope.signup.role = 'Admin'
 
 
+    $scope.loginPage = function () {
 
+        $state.go('login')
+    }
     
 
     $scope.saveSignUp = function () {

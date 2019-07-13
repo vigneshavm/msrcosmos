@@ -177,7 +177,7 @@ ActionRoutes.prototype.getUserList = function (req,callback){
         condition :  {
             role: { $ne: 'admin' }
         },
-        sortOrder : {_id:1}
+        sortOrder : {_id: -1}
     };
     self.serviceInstance.getCount(tableName, criteria, function (err,userCount) {
 
@@ -215,7 +215,7 @@ ActionRoutes.prototype.getUserList = function (req,callback){
 
                     console.log("criteria", criteria);
                     self.serviceInstance.findData(tableName, criteria, function (err, res) {
-
+                        console.log(res, "res");
 
                         if(res.length){
 
@@ -223,14 +223,15 @@ ActionRoutes.prototype.getUserList = function (req,callback){
                         singleObj['logOutStatus'] = res[0].logOutStatus ? 'Offline' : 'Online';
                         singleObj['logOutTime'] = res[0].logOutTime ? moment(res[0].logOutTime).format('YYYY-MM-DD HH:mm:ss') : '';
 
-
+                            forEachCbk(null, singleObj);
                         }else{
                             singleObj['lastLoginTime'] =  'Not Yet Login';
                             singleObj['logOutStatus'] = 'Not Used Yet';
                             singleObj['logOutTime'] = '';
+                            forEachCbk(null, singleObj);
                         }
 
-                        forEachCbk(null, singleObj);
+
                     })
 
                 }, function (result2) {
@@ -449,11 +450,13 @@ ActionRoutes.prototype.logOut = function (req,callback){
 
     self.serviceInstance.findData(tableName, criteria, function (err,res){
 
+        console.log("res-", res);
+
         if(res.length){
 
 
                 var condition ={
-                   _id : res[0]._id
+                    loginTime : res[0].loginTime
                 };
 
             var updateData ={

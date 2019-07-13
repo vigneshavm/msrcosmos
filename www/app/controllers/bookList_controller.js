@@ -1,4 +1,4 @@
-libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state', function ($scope, $http, $rootScope,$state) {
+libraryApp.controller("bookController", ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
 
     $scope.page = 1;
     $scope.limit = 5;
@@ -8,7 +8,6 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
 
     if ($rootScope.role == 'normal') {
         $scope.navList = [
-
 
 
             {
@@ -49,10 +48,79 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
     }
 
 
-    $scope.deleteBook = function(m){
+    $scope.sortFindorderByID = 2;
+
+    $scope.orderByID = function (m) {
+
+        $scope.sortFindorderByID += 1;
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+        if (isEven($scope.sortFindorderByID)) {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return -1; }
+                if(a[m] > b[m]) { return 1; }
+                return 0;
+            })
+        } else {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return 1; }
+                if(a[m] > b[m]) { return -1; }
+                return 0;
+            })
+        }
+
+    };
+    $scope.sortFindorderByName = 2;
+
+    $scope.orderByName = function (m) {
+
+        $scope.sortFindorderByName += 1;
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+        if (isEven($scope.sortFindorderByName)) {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return -1; }
+                if(a[m] > b[m]) { return 1; }
+                return 0;
+            })
+        } else {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return 1; }
+                if(a[m] > b[m]) { return -1; }
+                return 0;
+            })
+        }
+    };
+
+    $scope.sortPublishDate = 2;
+
+    $scope.orderByPublishDate  = function (m) {
+
+        $scope.sortPublishDate += 1;
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+        if (isEven($scope.sortPublishDate)) {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return -1; }
+                if(a[m] > b[m]) { return 1; }
+                return 0;
+            })
+        } else {
+            $scope.bookList.sort(function(a, b){
+                if(a[m] < b[m]) { return 1; }
+                if(a[m] > b[m]) { return -1; }
+                return 0;
+            })
+        }
+    };
+
+
+    $scope.deleteBook = function (m) {
         console.log(m.list)
-        if(m.list)
-        {
+        if (m.list) {
             console.log(m.list.bookID);
             $http({
 
@@ -60,14 +128,14 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
 
                 url: '/deleteBook',
 
-                params: {bookID :m.list.bookID }
+                params: {bookID: m.list.bookID}
 
             }).then(function success(response) {
                 location.reload();
-                if(response.status) {
+                if (response.status) {
                     $scope.book_delete = "Book deleted successfully";
 
-                }else{
+                } else {
                     $scope.book_delete = "Book not deleted";
                 }
             })
@@ -76,6 +144,7 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
     }
 
     $scope.getBookList = function () {
+
 
         var req_data = {
             limit: $scope.limit,
@@ -94,42 +163,41 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
             .then(function success(response) {
 
 
-            var responseObject = response.data.data;
-            $scope.pageNum = true
-            $scope.bookList = responseObject
+                var responseObject = response.data.data;
+                $scope.pageNum = true
+                $scope.bookList = responseObject
 
-            if ($scope.page == 1) {
+                if ($scope.page == 1) {
 
-                $scope.totalCount = Number(response.data.count)
-                $scope.totalPage = Math.ceil($scope.totalCount / $scope.limit)
+                    $scope.totalCount = Number(response.data.count)
+                    $scope.totalPage = Math.ceil($scope.totalCount / $scope.limit)
 
-                console.log($scope.totalPage);
+                    console.log($scope.totalPage);
 
-                if($scope.totalPage ==0)
-                {
-                    $scope.totalPage +=1;
+                    if ($scope.totalPage == 0) {
+                        $scope.totalPage += 1;
+                    }
+
+
                 }
 
 
-            }
+                if (($scope.totalPage < $scope.page) || ($scope.totalPage == $scope.page)) {
+                    $scope.nextButton = true
+                } else {
+                    $scope.nextButton = false
+                }
 
 
-            if (($scope.totalPage < $scope.page) || ($scope.totalPage == $scope.page)) {
-                $scope.nextButton = true
-            } else {
-                $scope.nextButton = false
-            }
+                if (($scope.page == 1) || ($scope.page == 0)) {
+
+                    $scope.previousButton = true
+                } else {
+                    $scope.previousButton = false
+                }
 
 
-            if (($scope.page == 1) || ($scope.page == 0)) {
-
-                $scope.previousButton = true
-            } else {
-                $scope.previousButton = false
-            }
-
-
-        });
+            });
     };
     $scope.getBookList()
 
@@ -152,7 +220,7 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
     $scope.logout = function () {
 
         var req_data = {
-            email : $rootScope.email
+            email: $rootScope.email
 
 
         };

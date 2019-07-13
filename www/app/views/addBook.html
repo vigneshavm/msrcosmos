@@ -28,26 +28,26 @@
                         <table >
                             <tr>
                                 <td >Book Name</td>
-                                <td><input style="cursor:text;"
+                                <td><input  class="form-control" style="cursor:text;"
                                                               type="text"
                                                               ng-model="bookDetails.name"></td>
                             </tr>
                             <tr>
                                 <td >Author</td>
-                                <td><input style="cursor:text;"
+                                <td><input  class="form-control" style="cursor:text;"
                                            type="text"
                                            ng-model="bookDetails.author"></td>
                             </tr>
 
                             <tr>
                                 <td >Published Date</td>
-                                <td><input placeholder="Date format - dd/mm/yyyy " style="cursor:text;"
+                                <td><input  class="form-control" placeholder="Date format - dd/mm/yyyy " style="cursor:text;"
                                            type="text"
                                            ng-model="bookDetails.publishedDate"></td>
                             </tr>
                             <tr>
                                 <td >Book quality</td>
-                                <td><input placeholder="Number " style="cursor:text;"
+                                <td><input  class="form-control" placeholder="Number " style="cursor:text;"
                                            type="text"
                                            ng-model="bookDetails.quality"></td>
                             </tr>
@@ -61,13 +61,13 @@
 
 
     </fieldset>
-    <button class="btn btn-default " ng-click="saveBookDetails()">Save</button>
+    <button type="button" class="btn btn-primary" ng-click="saveBookDetails()">Save</button>
 
     <div style="color: black">{{book_info}}</div>
 </div>
 
 
 <div>
-    <button class="btn btn-default " style="top: 0;position: fixed;
+    <button type="button" class="btn btn-danger" style="top: 0;position: fixed;
   right: 0;" ng-click="logout()">LogOut</button>
 </div>
