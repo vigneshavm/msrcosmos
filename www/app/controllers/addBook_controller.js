@@ -1,4 +1,4 @@
-libraryApp.controller("addBookController", ['$scope', '$http','$rootScope', function ($scope, $http,$rootScope) {
+libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$state', function ($scope, $http,$rootScope,$state) {
 
     $scope.bookDetails = {}
 
@@ -77,9 +77,21 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope', func
 
             });
     };
+  $scope.logout = function () {
+
+        var req_data = {
+            email : $rootScope.email
 
 
+        };
 
-    //$scope.addBookDetails()
+      console.log("req_data",req_data);
+      $http.post('/logout', req_data)
+
+            .then(function (response) {
+                $state.go("login")
+
+            });
+    };
 
     }]);

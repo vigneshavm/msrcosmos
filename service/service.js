@@ -94,7 +94,7 @@ ServiceRoutes.prototype.insertData = function (req,tableName, callback) {
     });
 
 }
-ServiceRoutes.prototype.updateUserData = function (condition,updateData, callback) {
+ServiceRoutes.prototype.updateUserData = function (tableName,condition,updateData, callback) {
 
 
 
@@ -102,10 +102,10 @@ ServiceRoutes.prototype.updateUserData = function (condition,updateData, callbac
 
 
 
-    db.user.update(condition, {
-            $set: updateData
-        },
+    db[tableName].update(condition, { $set: updateData },   { upsert: true },
         function(err, data) {
+
+            console.log("data",data)
             if (data) {
 
                 response ={

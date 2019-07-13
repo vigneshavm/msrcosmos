@@ -192,13 +192,26 @@ ActionRoutes.prototype.getUserList = function (req,callback){
 
                     var criteria = {
                         condition: {email: singleObj.email},
-                        sortOrder: {_id: 1},
+                        sortOrder: {_id: -1},
                         limit: 1
                     };
+
+                    console.log("criteria", criteria);
                     self.serviceInstance.findData(tableName, criteria, function (err, res) {
 
 
-                        singleObj['lastLoginTime'] = res.loginTime ? res.loginTime : null;
+                        if(res.length){
+
+                        singleObj['lastLoginTime'] = res[0].loginTime ? moment(res[0].loginTime).format('YYYY-MM-DD HH:mm:ss') : '';
+                        singleObj['logOutStatus'] = res[0].logOutStatus ? 'Offline' : 'Online';
+                        singleObj['logOutTime'] = res[0].logOutTime ? moment(res[0].logOutTime).format('YYYY-MM-DD HH:mm:ss') : '';
+
+
+                        }else{
+                            singleObj['lastLoginTime'] =  'Not Yet Login';
+                            singleObj['logOutStatus'] = 'Not Used Yet';
+                            singleObj['logOutTime'] = '';
+                        }
 
                         forEachCbk(null, singleObj);
                     })
@@ -432,6 +445,91 @@ ActionRoutes.prototype.getBookList = function (req,callback){
         }
 
     })
+    })
+
+
+};
+
+
+ActionRoutes.prototype.logOut = function (req,callback){
+
+
+    var self = this;
+
+    var  reqObj= req.body;
+
+
+
+
+    var resObject ={};
+
+
+    var tableName= 'loginStatus';
+
+
+    var criteria={
+        condition : {email : reqObj.email},
+        sortOrder : {_id:-1},
+        limit :1
+    };
+
+    console.log("criteria", criteria);
+
+    self.serviceInstance.findData(tableName, criteria, function (err,res){
+
+        if(res.length){
+
+
+                var condition ={
+                   _id : res[0]._id
+                };
+
+            var updateData ={
+                logOutStatus : true,
+                logOutTime : new  Date().getTime()
+            }
+
+
+
+
+                self.serviceInstance.updateUserData(tableName,condition,updateData,function(err,res){
+                    if(res){
+
+                        resObject= {
+                            status:true,
+                            data :res,
+                            message : 'Book added Successfully'
+                        };
+
+                        callback(null,resObject)
+
+                    }else{
+                        resObject= {
+                            status:false,
+                            data :res,
+                            message : 'Book not able to add - failed'
+                        };
+                        callback(null,resObject)
+
+                    }
+
+                })
+
+
+
+        }else{
+            resObject = {
+                status: false,
+                statusCode: 100,
+                data: res,
+                message: 'Logout Failed'
+            };
+            callback(null, resObject)
+
+
+
+        }
+
     })
 
 

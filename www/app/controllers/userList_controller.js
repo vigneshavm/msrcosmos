@@ -1,4 +1,4 @@
-libraryApp.controller("userController", ['$scope', '$http','$rootScope', function ($scope, $http,$rootScope) {
+libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state', function ($scope, $http,$rootScope,$state) {
 
     $scope.page = 0;
     $scope.limit = 5;
@@ -58,5 +58,20 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope', functio
             });
     };
     $scope.userList()
+
+    $scope.logout = function () {
+
+        var req_data = {
+            email : $rootScope.email
+
+
+        };
+        $http.post('/logout', req_data)
+
+            .then(function (response) {
+                $state.go("login")
+
+            });
+    };
 
 }]);

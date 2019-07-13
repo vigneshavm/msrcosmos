@@ -33,19 +33,19 @@
                 <!--<tr>-->
                 <div>
                     <td style="padding:25px;">
-                        {{list.book}}
+                        {{list.book ? list.book : "-"}}
                     </td>
 
                     <td style="padding:25px;">
-                        {{list.publishedDate}}
+                        {{list.publishedDate ? list.publishedDate : "-"}}
                     </td>
 
                     <td style="padding:25px;">
-                        {{list.author}}
+                        {{list.author ? list.author : "-"}}
                     </td>
 
                     <td style="padding:25px;">
-                        {{list.quality}}
+                        {{list.quality ? list.quality : "-"}}
                     </td>
                 </div>
                 <!--</tr>-->
@@ -65,4 +65,10 @@
     <div ng-show="pageNum" class="neo-order page-font pull-left" style="white-space: nowrap" >Page <span>{{page}}</span> of
         <span>{{totalPage || 0}}</span>
     </div>
+</div>
+
+
+<div>
+    <button class="btn btn-default " style="top: 0;position: fixed;
+  right: 0;" ng-click="logout()">LogOut</button>
 </div>

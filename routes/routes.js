@@ -78,4 +78,14 @@ UIRoutes.prototype.init = function()
 
     })
 
+    app.post("/logout",function(req,res){
+
+        console.log("enet logout result")
+        self.actionInstance.logOut(req,function(err,result){
+            console.log(result,"result")
+
+            res.json(result)
+        })
+    })
+
 };

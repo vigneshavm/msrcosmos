@@ -27,6 +27,7 @@
                 <th style="padding:25px;">Email</th>
                 <th style="padding:25px;">Status</th>
                 <th style="padding:25px;">Last LoginIn</th>
+                <th style="padding:25px;">Last LoginOut</th>
             </tr>
 
             <tr ng-repeat="list in userListData">
@@ -41,11 +42,14 @@
                     </td>
 
                     <td style="padding:25px;">
-                        {{list.Online}}
+                        {{list.logOutStatus}}
+                    </td>
+                    <td style="padding:25px;">
+                        {{list.lastLoginTime}}
                     </td>
 
                     <td style="padding:25px;">
-                        {{list.Online}}
+                        {{list.logOutTime}}
                     </td>
 
                 </div>
@@ -58,4 +62,10 @@
     <div ng-show="pageNum" class="neo-order page-font pull-left" style="white-space: nowrap" >Page <span>{{page}}</span> of
         <span>{{Math.ceil(totalCount/limit) || 0}}</span>
     </div>
+</div>
+
+
+<div>
+    <button class="btn btn-default " style="top: 0;position: fixed;
+  right: 0;" ng-click="logout()">LogOut</button>
 </div>
