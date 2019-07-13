@@ -1,7 +1,10 @@
 libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state', function ($scope, $http,$rootScope,$state) {
 
-    $scope.page = 0;
+
+    $scope.page = 1;
     $scope.limit = 5;
+    $scope.disableBtn = false;
+    $scope.previousButton = false;
 
 
     console.log($rootScope.role,"$rootScope");
@@ -46,23 +49,75 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
 
     $scope.userList = function () {
 
+        var req_data = {
+            limit: $scope.limit,
+            page: $scope.page
+        };
 
-        $http.get('/userList', {})
+        $http({
 
-            .then(function (response) {
+            method: 'GET',
+
+            url: '/userList',
+
+            params: req_data
+
+        })
+            .then(function success(response) {
+
+
                 var responseObject = response.data.data;
-
-                console.log("responseObject",responseObject);
-                $scope.userListData = responseObject
                 $scope.pageNum = true
+                $scope.userListData = responseObject
 
-                $scope.totalCount = response.data.count
+                if ($scope.page == 1) {
 
-                console.log("$scope.totalCount", $scope.totalCount);
+                    $scope.totalCount = Number(response.data.count)
+                    $scope.totalPage = Math.ceil($scope.totalCount / $scope.limit)
+
+                    console.log($scope.totalPage);
+
+                    if($scope.totalPage ==0)
+                    {
+                        $scope.totalPage +=1;
+                    }
+
+
+                }
+
+
+                if (($scope.totalPage < $scope.page) || ($scope.totalPage == $scope.page)) {
+                    $scope.nextButton = true
+                } else {
+                    $scope.nextButton = false
+                }
+
+
+                if (($scope.page == 1) || ($scope.page == 0)) {
+
+                    $scope.previousButton = true
+                } else {
+                    $scope.previousButton = false
+                }
+
 
             });
     };
     $scope.userList()
+
+    $scope.previous_question = function () {
+        $scope.page -= 1;
+        $scope.userList()
+
+
+    }
+
+    $scope.next_question = function () {
+        $scope.page += 1;
+        $scope.userList()
+
+
+    }
 
     $scope.logout = function () {
 

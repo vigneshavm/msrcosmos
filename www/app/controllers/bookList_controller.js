@@ -90,7 +90,8 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope','$state
 
             params: req_data
 
-        }).then(function success(response) {
+        })
+            .then(function success(response) {
 
 
             var responseObject = response.data.data;

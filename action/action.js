@@ -180,6 +180,23 @@ ActionRoutes.prototype.getUserList = function (req,callback){
         sortOrder : {_id:1}
     };
     self.serviceInstance.getCount(tableName, criteria, function (err,userCount) {
+
+
+
+
+
+            var criteria={
+                condition : {
+                },
+                sortOrder :{
+                    _id:-1
+                },
+                limit : Number(reqObj.limit),
+                skip : Number((reqObj.page - 1) * Number(reqObj.limit))
+
+            };
+
+
         self.serviceInstance.findData(tableName, criteria, function (err, UserRes) {
 
 
@@ -244,65 +261,7 @@ ActionRoutes.prototype.getUserList = function (req,callback){
 
     })
 };
-ActionRoutes.prototype.getUserMessages = function (req,callback){
 
-
-    var self = this;
-
-    var  reqObj= req.query;
-
-
-    var resObject ={};
-
-    var condition ={ to:  reqObj.email };
-
-    self.serviceInstance.findMessages(condition,function(err,res){
-
-
-
-        if(res.length){
-
-            async.forEach(res, function (singleObj, forEachCbk) {
-
-                console.log(singleObj.time);
-
-                var endrest=moment(singleObj.time).format('YYYY-MM-DD HH:mm:ss');
-
-
-
-                console.log(endrest,"dateFormat");
-
-                singleObj['date'] =endrest;
-
-                forEachCbk(null, singleObj);
-
-            }, function (result2) {
-
-                resObject = {
-                    status: true,
-                    data: res,
-                    description: 'Message available'
-                };
-
-                callback(null, resObject)
-            })
-
-        }else{
-
-
-            resObject= {
-                status:false,
-                data :[],
-                description : 'No Message found'
-            };
-            callback(null,resObject)
-
-        }
-
-    })
-
-
-};
 
 ActionRoutes.prototype.addBook = function (req,callback){
 
