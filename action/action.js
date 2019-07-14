@@ -400,13 +400,20 @@ ActionRoutes.prototype.getBookList = function (req,callback){
 
         if(res.length){
 
-            resObject= {
-                status:true,
-                data : res,
-                count :recordCount
-            };
+            async.forEach(res, function (singleObj, forEachCbk) {
 
-            callback(null,resObject)
+                singleObj['publisehedSec'] = moment(singleObj.publishedDate,"D/M/YYYY").unix()
+                forEachCbk(null, singleObj);
+
+             }, function (result2) {
+                resObject = {
+                    status: true,
+                    data: res,
+                    count: recordCount
+                };
+
+                callback(null, resObject)
+            })
 
         }else{
 

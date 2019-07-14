@@ -103,18 +103,21 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope', '$stat
             return n % 2 == 0;
         }
         if (isEven($scope.sortPublishDate)) {
+
+
             $scope.bookList.sort(function(a, b){
-                if(a[m] < b[m]) { return -1; }
-                if(a[m] > b[m]) { return 1; }
-                return 0;
-            })
+                return a[m] < b[m] ? -1 : (a[m]  >  b[m] ? 1 : 0);
+            });
         } else {
+
             $scope.bookList.sort(function(a, b){
                 if(a[m] < b[m]) { return 1; }
                 if(a[m] > b[m]) { return -1; }
                 return 0;
             })
         }
+
+
     };
 
 
