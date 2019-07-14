@@ -24,7 +24,7 @@ libraryApp.controller("loginController", ['$scope', '$http','$rootScope','$state
 
                         console.log("$rootScope.role ",$rootScope.role )
 
-                        if($rootScope.role == 'normal')
+                        if($rootScope.role == 'Normal')
                         {
                             $state.go("book");
                         }else {

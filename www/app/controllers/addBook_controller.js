@@ -20,7 +20,7 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$sta
 
     ];
 
-    if($rootScope.role == 'normal')
+    if($rootScope.role == 'Normal')
     {
         $scope.navList = [
 

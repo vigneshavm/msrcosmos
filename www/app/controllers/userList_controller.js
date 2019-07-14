@@ -13,7 +13,7 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
 
     console.log($rootScope.role,"$rootScope");
 
-    if($rootScope.role == 'normal')
+    if($rootScope.role == 'Normal')
     {
         $scope.navList = [
 

@@ -6,7 +6,7 @@ libraryApp.controller("bookController", ['$scope', '$http', '$rootScope', '$stat
     $scope.previousButton = false;
 
 
-    if ($rootScope.role == 'normal') {
+    if ($rootScope.role == 'Normal') {
         $scope.navList = [
 
 
