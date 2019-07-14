@@ -1,0 +1,27 @@
+{
+  "name": "msrcosmos",
+  "version": "1.0.0",
+  "description": "library management system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vigneshavm/msrcosmos.git"
+  },
+  "author": "vignesh athimoolam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vigneshavm/msrcosmos/issues"
+  },
+  "homepage": "https://github.com/vigneshavm/msrcosmos#readme",
+  "dependencies": {
+    "async": "^3.1.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "moment": "^2.24.0",
+    "mongojs": "^2.6.0"
+  }
+}
