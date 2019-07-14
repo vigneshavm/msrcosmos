@@ -175,7 +175,7 @@ ActionRoutes.prototype.getUserList = function (req,callback){
 
     var criteria={
         condition :  {
-            role: { $ne: 'admin' }
+            role: { $ne: 'Admin' }
         },
         sortOrder : {_id: -1}
     };
