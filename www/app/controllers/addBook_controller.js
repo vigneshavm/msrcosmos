@@ -1,7 +1,4 @@
-
-
-
-libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$state', function ($scope, $http,$rootScope,$state) {
+libraryApp.controller("addBookController", ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
 
     $scope.bookDetails = {}
 
@@ -20,8 +17,7 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$sta
 
     ];
 
-    if($rootScope.role == 'Normal')
-    {
+    if ($rootScope.role == 'Normal') {
         $scope.navList = [
 
 
@@ -36,7 +32,7 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$sta
         $scope.editField = true
         $scope.deleteField = true
 
-    }else{
+    } else {
         $scope.navList = [
 
             {
@@ -55,7 +51,7 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$sta
                 state: "addBook"
             }
 
-    ]
+        ]
 
         $scope.editField = false
         $scope.deleteField = false
@@ -64,26 +60,25 @@ libraryApp.controller("addBookController", ['$scope', '$http','$rootScope','$sta
 
     $scope.saveBookDetails = function () {
 
-$scope.fieldValidation = true;
-        if ($scope.bookDetails.name==null || $scope.bookDetails.name==""){
+        $scope.fieldValidation = true;
+        if ($scope.bookDetails.name == null || $scope.bookDetails.name == "") {
             alert("Book Name can't be blank");
             $scope.fieldValidation = false;
             return false;
         }
 
-        if ($scope.bookDetails.author==null || $scope.bookDetails.author==""){
+        if ($scope.bookDetails.author == null || $scope.bookDetails.author == "") {
             alert("author Name can't be blank");
             $scope.fieldValidation = false;
             return false;
         }
-        if ($scope.bookDetails.quality==null || $scope.bookDetails.quality==""){
+        if ($scope.bookDetails.quality == null || $scope.bookDetails.quality == "") {
             alert("quality can't be blank");
 
             $scope.fieldValidation = false;
             return false;
-        }else {
-            if(/\D/.test($scope.bookDetails.quality))
-            {
+        } else {
+            if (/\D/.test($scope.bookDetails.quality)) {
 
                 alert("quality should be number");
 
@@ -92,35 +87,29 @@ $scope.fieldValidation = true;
             }
         }
 
-        if ($scope.bookDetails.publishedDate==null || $scope.bookDetails.publishedDate==""){
+        if ($scope.bookDetails.publishedDate == null || $scope.bookDetails.publishedDate == "") {
 
 
-
-                alert("publishedDate can't be blank");
+            alert("publishedDate can't be blank");
 
             $scope.fieldValidation = false;
             return false;
 
-        }else{
-            function validatedate(inputText)
-            {
+        } else {
+            function validatedate(inputText) {
                 var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-                if(inputText.match(dateformat))
-                {
+                if (inputText.match(dateformat)) {
 
-                    if(moment(inputText, 'D/M/YYYY',true).isValid())
-                    {
+                    if (moment(inputText, 'D/M/YYYY', true).isValid()) {
 
-                    }else
-                    {
+                    } else {
                         console.log("false");
                         $scope.fieldValidation = false;
                         alert("Invalid date format!");
                         return false;
                     }
-                        }
-                else
-                {
+                }
+                else {
                     alert("Invalid date");
                     $scope.fieldValidation = false;
                     return false;
@@ -131,51 +120,59 @@ $scope.fieldValidation = true;
         }
 
 
-
-if($scope.fieldValidation){
-    var req_data = {
-        book: $scope.bookDetails.name,
-        publishedDate: $scope.bookDetails.publishedDate,
-        author: $scope.bookDetails.author,
-        quality: $scope.bookDetails.quality
-
-
-    };
-    $http.post('/addBook', req_data)
-
-        .then(function (response) {
-            var responseObject = response.data;
-
-            if(responseObject.status){
-                $scope.book_info = "Book added successfully"
-
-            }else{
-                if(responseObject.statusCode == 100){
-                    $scope.book_info = responseObject.message;
-                }else{
-                    $scope.book_info = "Not able to add";
-                }
-
-            }
+        if ($scope.fieldValidation) {
+            var req_data = {
+                book: $scope.bookDetails.name,
+                publishedDate: $scope.bookDetails.publishedDate,
+                author: $scope.bookDetails.author,
+                quality: $scope.bookDetails.quality
 
 
+            };
+            $http.post('/addBook', req_data)
 
-        });
-};
-}
+                .then(function (response) {
+                    var responseObject = response.data;
+
+                    if (responseObject.status) {
+                        $scope.book_info = "Book added successfully";
+
+                        setTimeout(function () {
+
+                            $scope.book_info = "";
+                            $scope.bookDetails.name = "";
+                            $scope.bookDetails.publishedDate = "";
+                            $scope.bookDetails.author = "";
+                            $scope.bookDetails.quality = ""
+
+                        }, 3000);
+
+                    } else {
+                        if (responseObject.statusCode == 100) {
+                            $scope.book_info = responseObject.message;
+                        } else {
+                            $scope.book_info = "Not able to add";
+                        }
+
+                    }
 
 
+                });
+        }
+        ;
+    }
 
-  $scope.logout = function () {
+
+    $scope.logout = function () {
 
         var req_data = {
-            email : $rootScope.email
+            email: $rootScope.email
 
 
         };
 
-      console.log("req_data",req_data);
-      $http.post('/logout', req_data)
+        console.log("req_data", req_data);
+        $http.post('/logout', req_data)
 
             .then(function (response) {
                 $state.go("login")
@@ -183,4 +180,4 @@ if($scope.fieldValidation){
             });
     };
 
-    }]);
+}]);
