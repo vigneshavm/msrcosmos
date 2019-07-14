@@ -139,11 +139,7 @@ libraryApp.controller("addBookController", ['$scope', '$http', '$rootScope', '$s
 
                         setTimeout(function () {
 
-                            $scope.book_info = "";
-                            $scope.bookDetails.name = "";
-                            $scope.bookDetails.publishedDate = "";
-                            $scope.bookDetails.author = "";
-                            $scope.bookDetails.quality = ""
+                            $state.go('addBook')
 
                         }, 3000);
 
