@@ -248,12 +248,14 @@ ActionRoutes.prototype.getUserList = function (req,callback){
                 })
 
 
-            } else {
+            }
+            else {
 
 
                 resObject = {
                     status: false,
-                    data: []
+                    data: [],
+                    count: 0
                 };
                 callback(null, resObject)
 

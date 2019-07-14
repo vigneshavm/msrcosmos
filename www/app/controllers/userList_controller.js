@@ -81,7 +81,7 @@ libraryApp.controller("userController", ['$scope', '$http','$rootScope','$state'
 
                     console.log($scope.totalPage);
 
-                    if($scope.totalPage ==0)
+                    if($scope.totalPage == 0 )
                     {
                         $scope.totalPage +=1;
                     }
